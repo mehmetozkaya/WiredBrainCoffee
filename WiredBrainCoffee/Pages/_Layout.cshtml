@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>WiredBrainCoffee</title>
 
-    <link rel="stylesheet" href="~/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/wiredbrain.css" />
+    <environment include="Development">
+        <link rel="stylesheet" href="~/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/wiredbrain.css" />
+    </environment>
+    <environment include="Production">
+        <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/css/wiredbrain.min.css" />
+    </environment>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -57,7 +64,15 @@
         </div>
     </footer>
 
-    <script src="~/js/jquery.js"></script>
-    <script src="~/js/bootstrap.js"></script>
+    <environment include="Development">
+        <script src="~/js/jquery.js"></script>
+        <script src="~/js/bootstrap.js"></script>
+    </environment>
+
+    <environment include="Production">
+        <script src="~/js/jquery.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+    </environment>
+
 </body>
 </html>
