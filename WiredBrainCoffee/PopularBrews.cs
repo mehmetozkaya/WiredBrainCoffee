@@ -9,10 +9,16 @@ namespace WiredBrainCoffee
 {
     public class PopularBrews : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(int count)
+        private readonly IMenuService _menuService;
+
+        public PopularBrews(IMenuService menuService)
         {
-            var menu = new MenuService();
-            return View(menu.GetMenuItems().Take(count));
+            _menuService = menuService ?? throw new ArgumentNullException(nameof(menuService));
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync(int count)
+        {            
+            return View(_menuService.GetMenuItems().Take(count));
         }
     }
 }

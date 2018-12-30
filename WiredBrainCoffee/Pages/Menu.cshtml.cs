@@ -10,13 +10,18 @@ namespace WiredBrainCoffee.Pages
 {
     public class MenuModel : PageModel
     {
+        private readonly IMenuService _menuService;
+
         public List<MenuItem> Menu { get; set; }
+
+        public MenuModel(IMenuService menuService)
+        {
+            _menuService = menuService ?? throw new ArgumentNullException(nameof(menuService));
+        }
 
         public void OnGet()
         {
-            var menuService = new MenuService();
-
-            Menu = menuService.GetMenuItems();
+            Menu = _menuService.GetMenuItems();
         }
     }
 }
