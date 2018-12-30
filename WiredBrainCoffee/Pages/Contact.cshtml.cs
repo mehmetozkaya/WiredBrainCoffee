@@ -28,5 +28,11 @@ namespace WiredBrainCoffee.Pages
                 Message = "Your email has been sent.";
             }
         }
+
+        public void OnPostSubscribe(string address)
+        {        
+            EmailService.SendEmail(Contact);
+            Message = "Your have been added to the mailing list.";            
+        }
     }
 }
