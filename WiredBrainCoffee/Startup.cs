@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WiredBrainCoffee.Services;
@@ -29,11 +31,26 @@ namespace WiredBrainCoffee
             });
 
             services.AddScoped<IMenuService, MenuService>();
+            services.AddLogging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path.Value.Contains("alive"))
+                {
+                    await context.Response.WriteAsync("The app is alive");
+                }
+                else
+                {
+                    Debug.WriteLine("Before Razor Pages");
+                    await next.Invoke();
+                    Debug.WriteLine("After Razor Pages");
+                }
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
