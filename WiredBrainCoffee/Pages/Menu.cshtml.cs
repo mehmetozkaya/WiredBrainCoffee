@@ -35,5 +35,10 @@ namespace WiredBrainCoffee.Pages
             }
             
         }
+
+        public void OnReason()
+        {
+
+        }
     }
 }
